@@ -1,0 +1,1847 @@
+[
+ {
+  "slot": 0,
+  "national": 252,
+  "name": "Treecko",
+  "key": "treecko",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 1,
+  "national": 253,
+  "name": "Grovyle",
+  "key": "grovyle",
+  "field": "ruby",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 2,
+  "national": 254,
+  "name": "Sceptile",
+  "key": "sceptile",
+  "field": "ruby",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 3,
+  "national": 255,
+  "name": "Torchic",
+  "key": "torchic",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 4,
+  "national": 256,
+  "name": "Combusken",
+  "key": "combusken",
+  "field": "ruby",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 5,
+  "national": 257,
+  "name": "Blaziken",
+  "key": "blaziken",
+  "field": "ruby",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 6,
+  "national": 258,
+  "name": "Mudkip",
+  "key": "mudkip",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 7,
+  "national": 259,
+  "name": "Marshtomp",
+  "key": "marshtomp",
+  "field": "sapphire",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 8,
+  "national": 260,
+  "name": "Swampert",
+  "key": "swampert",
+  "field": "sapphire",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 9,
+  "national": 261,
+  "name": "Poochyena",
+  "key": "poochyena",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 10,
+  "national": 262,
+  "name": "Mightyena",
+  "key": "mightyena",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 11,
+  "national": 263,
+  "name": "Zigzagoon",
+  "key": "zigzagoon",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 12,
+  "national": 264,
+  "name": "Linoone",
+  "key": "linoone",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 13,
+  "national": 265,
+  "name": "Wurmple",
+  "key": "wurmple",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 14,
+  "national": 266,
+  "name": "Silcoon",
+  "key": "silcoon",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 15,
+  "national": 267,
+  "name": "Beautifly",
+  "key": "beautifly",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 16,
+  "national": 268,
+  "name": "Cascoon",
+  "key": "cascoon",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 17,
+  "national": 269,
+  "name": "Dustox",
+  "key": "dustox",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 18,
+  "national": 270,
+  "name": "Lotad",
+  "key": "lotad",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 19,
+  "national": 271,
+  "name": "Lombre",
+  "key": "lombre",
+  "field": "sapphire",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 20,
+  "national": 272,
+  "name": "Ludicolo",
+  "key": "ludicolo",
+  "field": "sapphire",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 21,
+  "national": 273,
+  "name": "Seedot",
+  "key": "seedot",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 22,
+  "national": 274,
+  "name": "Nuzleaf",
+  "key": "nuzleaf",
+  "field": "ruby",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 23,
+  "national": 275,
+  "name": "Shiftry",
+  "key": "shiftry",
+  "field": "ruby",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 24,
+  "national": 276,
+  "name": "Taillow",
+  "key": "taillow",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 25,
+  "national": 277,
+  "name": "Swellow",
+  "key": "swellow",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 26,
+  "national": 278,
+  "name": "Wingull",
+  "key": "wingull",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 27,
+  "national": 279,
+  "name": "Pelipper",
+  "key": "pelipper",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 28,
+  "national": 280,
+  "name": "Ralts",
+  "key": "ralts",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 29,
+  "national": 281,
+  "name": "Kirlia",
+  "key": "kirlia",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 30,
+  "national": 282,
+  "name": "Gardevoir",
+  "key": "gardevoir",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 31,
+  "national": 283,
+  "name": "Surskit",
+  "key": "surskit",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 32,
+  "national": 284,
+  "name": "Masquerain",
+  "key": "masquerain",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 33,
+  "national": 285,
+  "name": "Shroomish",
+  "key": "shroomish",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 34,
+  "national": 286,
+  "name": "Breloom",
+  "key": "breloom",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 35,
+  "national": 287,
+  "name": "Slakoth",
+  "key": "slakoth",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 36,
+  "national": 288,
+  "name": "Vigoroth",
+  "key": "vigoroth",
+  "field": "sapphire",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 37,
+  "national": 289,
+  "name": "Slaking",
+  "key": "slaking",
+  "field": "sapphire",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 38,
+  "national": 63,
+  "name": "Abra",
+  "key": "abra",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 39,
+  "national": 64,
+  "name": "Kadabra",
+  "key": "kadabra",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 40,
+  "national": 65,
+  "name": "Alakazam",
+  "key": "alakazam",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 41,
+  "national": 290,
+  "name": "Nincada",
+  "key": "nincada",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 42,
+  "national": 291,
+  "name": "Ninjask",
+  "key": "ninjask",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 43,
+  "national": 292,
+  "name": "Shedinja",
+  "key": "shedinja",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 44,
+  "national": 293,
+  "name": "Whismur",
+  "key": "whismur",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 45,
+  "national": 294,
+  "name": "Loudred",
+  "key": "loudred",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 46,
+  "national": 295,
+  "name": "Exploud",
+  "key": "exploud",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 47,
+  "national": 296,
+  "name": "Makuhita",
+  "key": "makuhita",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 48,
+  "national": 297,
+  "name": "Hariyama",
+  "key": "hariyama",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 49,
+  "national": 118,
+  "name": "Goldeen",
+  "key": "goldeen",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 50,
+  "national": 119,
+  "name": "Seaking",
+  "key": "seaking",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 51,
+  "national": 129,
+  "name": "Magikarp",
+  "key": "magikarp",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 52,
+  "national": 130,
+  "name": "Gyarados",
+  "key": "gyarados",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 53,
+  "national": 298,
+  "name": "Azurill",
+  "key": "azurill",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 54,
+  "national": 183,
+  "name": "Marill",
+  "key": "marill",
+  "field": "sapphire",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 55,
+  "national": 184,
+  "name": "Azumarill",
+  "key": "azumarill",
+  "field": "sapphire",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 56,
+  "national": 74,
+  "name": "Geodude",
+  "key": "geodude",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 57,
+  "national": 75,
+  "name": "Graveler",
+  "key": "graveler",
+  "field": "sapphire",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 58,
+  "national": 76,
+  "name": "Golem",
+  "key": "golem",
+  "field": "sapphire",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 59,
+  "national": 299,
+  "name": "Nosepass",
+  "key": "nosepass",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 60,
+  "national": 300,
+  "name": "Skitty",
+  "key": "skitty",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 61,
+  "national": 301,
+  "name": "Delcatty",
+  "key": "delcatty",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 62,
+  "national": 41,
+  "name": "Zubat",
+  "key": "zubat",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 63,
+  "national": 42,
+  "name": "Golbat",
+  "key": "golbat",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 64,
+  "national": 169,
+  "name": "Crobat",
+  "key": "crobat",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 65,
+  "national": 72,
+  "name": "Tentacool",
+  "key": "tentacool",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 66,
+  "national": 73,
+  "name": "Tentacruel",
+  "key": "tentacruel",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 67,
+  "national": 302,
+  "name": "Sableye",
+  "key": "sableye",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 68,
+  "national": 303,
+  "name": "Mawile",
+  "key": "mawile",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 69,
+  "national": 304,
+  "name": "Aron",
+  "key": "aron",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 70,
+  "national": 305,
+  "name": "Lairon",
+  "key": "lairon",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 71,
+  "national": 306,
+  "name": "Aggron",
+  "key": "aggron",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 72,
+  "national": 66,
+  "name": "Machop",
+  "key": "machop",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 73,
+  "national": 67,
+  "name": "Machoke",
+  "key": "machoke",
+  "field": "ruby",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 74,
+  "national": 68,
+  "name": "Machamp",
+  "key": "machamp",
+  "field": "ruby",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 75,
+  "national": 307,
+  "name": "Meditite",
+  "key": "meditite",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 76,
+  "national": 308,
+  "name": "Medicham",
+  "key": "medicham",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 77,
+  "national": 309,
+  "name": "Electrike",
+  "key": "electrike",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 78,
+  "national": 310,
+  "name": "Manectric",
+  "key": "manectric",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 79,
+  "national": 311,
+  "name": "Plusle",
+  "key": "plusle",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 80,
+  "national": 312,
+  "name": "Minun",
+  "key": "minun",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 81,
+  "national": 81,
+  "name": "Magnemite",
+  "key": "magnemite",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 82,
+  "national": 82,
+  "name": "Magneton",
+  "key": "magneton",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 83,
+  "national": 100,
+  "name": "Voltorb",
+  "key": "voltorb",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 84,
+  "national": 101,
+  "name": "Electrode",
+  "key": "electrode",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 85,
+  "national": 313,
+  "name": "Volbeat",
+  "key": "volbeat",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 86,
+  "national": 314,
+  "name": "Illumise",
+  "key": "illumise",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 87,
+  "national": 43,
+  "name": "Oddish",
+  "key": "oddish",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 88,
+  "national": 44,
+  "name": "Gloom",
+  "key": "gloom",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 89,
+  "national": 45,
+  "name": "Vileplume",
+  "key": "vileplume",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 90,
+  "national": 182,
+  "name": "Bellossom",
+  "key": "bellossom",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 91,
+  "national": 84,
+  "name": "Doduo",
+  "key": "doduo",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 92,
+  "national": 85,
+  "name": "Dodrio",
+  "key": "dodrio",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 93,
+  "national": 315,
+  "name": "Roselia",
+  "key": "roselia",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 94,
+  "national": 316,
+  "name": "Gulpin",
+  "key": "gulpin",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 95,
+  "national": 317,
+  "name": "Swalot",
+  "key": "swalot",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 96,
+  "national": 318,
+  "name": "Carvanha",
+  "key": "carvanha",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 97,
+  "national": 319,
+  "name": "Sharpedo",
+  "key": "sharpedo",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 98,
+  "national": 320,
+  "name": "Wailmer",
+  "key": "wailmer",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 99,
+  "national": 321,
+  "name": "Wailord",
+  "key": "wailord",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 100,
+  "national": 322,
+  "name": "Numel",
+  "key": "numel",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 101,
+  "national": 323,
+  "name": "Camerupt",
+  "key": "camerupt",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 102,
+  "national": 218,
+  "name": "Slugma",
+  "key": "slugma",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 103,
+  "national": 219,
+  "name": "Magcargo",
+  "key": "magcargo",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 104,
+  "national": 324,
+  "name": "Torkoal",
+  "key": "torkoal",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 105,
+  "national": 88,
+  "name": "Grimer",
+  "key": "grimer",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 106,
+  "national": 89,
+  "name": "Muk",
+  "key": "muk",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 107,
+  "national": 109,
+  "name": "Koffing",
+  "key": "koffing",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 108,
+  "national": 110,
+  "name": "Weezing",
+  "key": "weezing",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 109,
+  "national": 325,
+  "name": "Spoink",
+  "key": "spoink",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 110,
+  "national": 326,
+  "name": "Grumpig",
+  "key": "grumpig",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 111,
+  "national": 27,
+  "name": "Sandshrew",
+  "key": "sandshrew",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 112,
+  "national": 28,
+  "name": "Sandslash",
+  "key": "sandslash",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 113,
+  "national": 327,
+  "name": "Spinda",
+  "key": "spinda",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 114,
+  "national": 227,
+  "name": "Skarmory",
+  "key": "skarmory",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 115,
+  "national": 328,
+  "name": "Trapinch",
+  "key": "trapinch",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 116,
+  "national": 329,
+  "name": "Vibrava",
+  "key": "vibrava",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 117,
+  "national": 330,
+  "name": "Flygon",
+  "key": "flygon",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 118,
+  "national": 331,
+  "name": "Cacnea",
+  "key": "cacnea",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 119,
+  "national": 332,
+  "name": "Cacturne",
+  "key": "cacturne",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 120,
+  "national": 333,
+  "name": "Swablu",
+  "key": "swablu",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 121,
+  "national": 334,
+  "name": "Altaria",
+  "key": "altaria",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 122,
+  "national": 335,
+  "name": "Zangoose",
+  "key": "zangoose",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 123,
+  "national": 336,
+  "name": "Seviper",
+  "key": "seviper",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 124,
+  "national": 337,
+  "name": "Lunatone",
+  "key": "lunatone",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 125,
+  "national": 338,
+  "name": "Solrock",
+  "key": "solrock",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 126,
+  "national": 339,
+  "name": "Barboach",
+  "key": "barboach",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 127,
+  "national": 340,
+  "name": "Whiscash",
+  "key": "whiscash",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 128,
+  "national": 341,
+  "name": "Corphish",
+  "key": "corphish",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 129,
+  "national": 342,
+  "name": "Crawdaunt",
+  "key": "crawdaunt",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 130,
+  "national": 343,
+  "name": "Baltoy",
+  "key": "baltoy",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 131,
+  "national": 344,
+  "name": "Claydol",
+  "key": "claydol",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 132,
+  "national": 345,
+  "name": "Lileep",
+  "key": "lileep",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 133,
+  "national": 346,
+  "name": "Cradily",
+  "key": "cradily",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 134,
+  "national": 347,
+  "name": "Anorith",
+  "key": "anorith",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 135,
+  "national": 348,
+  "name": "Armaldo",
+  "key": "armaldo",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 136,
+  "national": 174,
+  "name": "Igglybuff",
+  "key": "igglybuff",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 137,
+  "national": 39,
+  "name": "Jigglypuff",
+  "key": "jigglypuff",
+  "field": "sapphire",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 138,
+  "national": 40,
+  "name": "Wigglytuff",
+  "key": "wigglytuff",
+  "field": "sapphire",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 139,
+  "national": 349,
+  "name": "Feebas",
+  "key": "feebas",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 140,
+  "national": 350,
+  "name": "Milotic",
+  "key": "milotic",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 141,
+  "national": 351,
+  "name": "Castform",
+  "key": "castform",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 142,
+  "national": 120,
+  "name": "Staryu",
+  "key": "staryu",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 143,
+  "national": 121,
+  "name": "Starmie",
+  "key": "starmie",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 144,
+  "national": 352,
+  "name": "Kecleon",
+  "key": "kecleon",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 145,
+  "national": 353,
+  "name": "Shuppet",
+  "key": "shuppet",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 146,
+  "national": 354,
+  "name": "Banette",
+  "key": "banette",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 147,
+  "national": 355,
+  "name": "Duskull",
+  "key": "duskull",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 148,
+  "national": 356,
+  "name": "Dusclops",
+  "key": "dusclops",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 149,
+  "national": 357,
+  "name": "Tropius",
+  "key": "tropius",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 150,
+  "national": 358,
+  "name": "Chimecho",
+  "key": "chimecho",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 151,
+  "national": 359,
+  "name": "Absol",
+  "key": "absol",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 152,
+  "national": 37,
+  "name": "Vulpix",
+  "key": "vulpix",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 153,
+  "national": 38,
+  "name": "Ninetales",
+  "key": "ninetales",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 154,
+  "national": 172,
+  "name": "Pichu",
+  "key": "pichu",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 155,
+  "national": 25,
+  "name": "Pikachu",
+  "key": "pikachu",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 156,
+  "national": 26,
+  "name": "Raichu",
+  "key": "raichu",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 157,
+  "national": 54,
+  "name": "Psyduck",
+  "key": "psyduck",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 158,
+  "national": 55,
+  "name": "Golduck",
+  "key": "golduck",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 159,
+  "national": 360,
+  "name": "Wynaut",
+  "key": "wynaut",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 160,
+  "national": 202,
+  "name": "Wobbuffet",
+  "key": "wobbuffet",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 161,
+  "national": 177,
+  "name": "Natu",
+  "key": "natu",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 162,
+  "national": 178,
+  "name": "Xatu",
+  "key": "xatu",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 163,
+  "national": 203,
+  "name": "Girafarig",
+  "key": "girafarig",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 164,
+  "national": 231,
+  "name": "Phanpy",
+  "key": "phanpy",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 165,
+  "national": 232,
+  "name": "Donphan",
+  "key": "donphan",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 166,
+  "national": 127,
+  "name": "Pinsir",
+  "key": "pinsir",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 167,
+  "national": 214,
+  "name": "Heracross",
+  "key": "heracross",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 168,
+  "national": 111,
+  "name": "Rhyhorn",
+  "key": "rhyhorn",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 169,
+  "national": 112,
+  "name": "Rhydon",
+  "key": "rhydon",
+  "field": "ruby",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 170,
+  "national": 361,
+  "name": "Snorunt",
+  "key": "snorunt",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 171,
+  "national": 362,
+  "name": "Glalie",
+  "key": "glalie",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 172,
+  "national": 363,
+  "name": "Spheal",
+  "key": "spheal",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 173,
+  "national": 364,
+  "name": "Sealeo",
+  "key": "sealeo",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 174,
+  "national": 365,
+  "name": "Walrein",
+  "key": "walrein",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 175,
+  "national": 366,
+  "name": "Clamperl",
+  "key": "clamperl",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 176,
+  "national": 367,
+  "name": "Huntail",
+  "key": "huntail",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 177,
+  "national": 368,
+  "name": "Gorebyss",
+  "key": "gorebyss",
+  "field": "either",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 178,
+  "national": 369,
+  "name": "Relicanth",
+  "key": "relicanth",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 179,
+  "national": 222,
+  "name": "Corsola",
+  "key": "corsola",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 180,
+  "national": 170,
+  "name": "Chinchou",
+  "key": "chinchou",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 181,
+  "national": 171,
+  "name": "Lanturn",
+  "key": "lanturn",
+  "field": "sapphire",
+  "ball": "ultra",
+  "special": false
+ },
+ {
+  "slot": 182,
+  "national": 370,
+  "name": "Luvdisc",
+  "key": "luvdisc",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 183,
+  "national": 116,
+  "name": "Horsea",
+  "key": "horsea",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 184,
+  "national": 117,
+  "name": "Seadra",
+  "key": "seadra",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 185,
+  "national": 230,
+  "name": "Kingdra",
+  "key": "kingdra",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 186,
+  "national": 371,
+  "name": "Bagon",
+  "key": "bagon",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 187,
+  "national": 372,
+  "name": "Shelgon",
+  "key": "shelgon",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 188,
+  "national": 373,
+  "name": "Salamence",
+  "key": "salamence",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 189,
+  "national": 374,
+  "name": "Beldum",
+  "key": "beldum",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 190,
+  "national": 375,
+  "name": "Metang",
+  "key": "metang",
+  "field": "either",
+  "ball": "great",
+  "special": false
+ },
+ {
+  "slot": 191,
+  "national": 376,
+  "name": "Metagross",
+  "key": "metagross",
+  "field": "either",
+  "ball": "master",
+  "special": false
+ },
+ {
+  "slot": 192,
+  "national": 377,
+  "name": "Regirock",
+  "key": "regirock",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 193,
+  "national": 378,
+  "name": "Regice",
+  "key": "regice",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 194,
+  "national": 379,
+  "name": "Registeel",
+  "key": "registeel",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 195,
+  "national": 380,
+  "name": "Latias",
+  "key": "latias",
+  "field": "sapphire",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 196,
+  "national": 381,
+  "name": "Latios",
+  "key": "latios",
+  "field": "ruby",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 197,
+  "national": 382,
+  "name": "Kyogre",
+  "key": "kyogre",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 198,
+  "national": 383,
+  "name": "Groudon",
+  "key": "groudon",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 199,
+  "national": 384,
+  "name": "Rayquaza",
+  "key": "rayquaza",
+  "field": "either",
+  "ball": "poke",
+  "special": false
+ },
+ {
+  "slot": 200,
+  "national": 385,
+  "name": "Jirachi",
+  "key": "jirachi",
+  "field": "either",
+  "ball": "poke",
+  "special": true
+ },
+ {
+  "slot": 201,
+  "national": 152,
+  "name": "Chikorita",
+  "key": "chikorita",
+  "field": "either",
+  "ball": "poke",
+  "special": true
+ },
+ {
+  "slot": 202,
+  "national": 155,
+  "name": "Cyndaquil",
+  "key": "cyndaquil",
+  "field": "either",
+  "ball": "poke",
+  "special": true
+ },
+ {
+  "slot": 203,
+  "national": 158,
+  "name": "Totodile",
+  "key": "totodile",
+  "field": "either",
+  "ball": "poke",
+  "special": true
+ },
+ {
+  "slot": 204,
+  "national": 142,
+  "name": "Aerodactyl",
+  "key": "aerodactyl",
+  "field": "either",
+  "ball": "poke",
+  "special": true
+ }
+]

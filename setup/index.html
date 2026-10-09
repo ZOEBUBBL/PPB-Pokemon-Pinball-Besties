@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pinball Pals Setup</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --cream:#fff6e8; --ink:#5a4660; --soft:#8a7691; --me:#ff8fb1; --lilac:#c9b6ff; --mint:#a6ecd0; --sun:#ffe08a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Fredoka, system-ui, sans-serif; color: var(--ink); background:
+    radial-gradient(circle at 10% 10%, #ffe9f1 0 18%, transparent 19%), radial-gradient(circle at 92% 30%, #e4f1ff 0 16%, transparent 17%), #f6ecff; }
+  main { max-width: 760px; margin: 0 auto; padding: 28px 16px 80px; }
+  h1 { font-size: 40px; margin: 0; } .sub { font-size: 20px; color: var(--soft); margin: 4px 0 20px; }
+  .step { background: var(--cream); border: 3px solid var(--ink); border-radius: 26px; padding: 18px 22px 18px 78px; margin: 16px 0; position: relative; box-shadow: 0 6px 0 rgba(90,70,96,.2); }
+  .step .n { position: absolute; left: 18px; top: 16px; width: 46px; height: 46px; border-radius: 50%; background: var(--me); color: #fff; border: 3px solid var(--ink); display: grid; place-items: center; font-weight: 700; font-size: 24px; text-shadow: 0 2px 0 rgba(0,0,0,.25); }
+  .step h2 { margin: 0 0 6px; font-size: 24px; } .step p { margin: 6px 0; line-height: 1.45; }
+  a.btn { display: inline-block; background: var(--me); color: #fff; text-decoration: none; border: 3px solid var(--ink); border-radius: 18px; padding: 8px 20px; font-weight: 700; font-size: 20px; box-shadow: 0 4px 0 rgba(90,70,96,.3); text-shadow: 0 2px 0 rgba(0,0,0,.2); margin: 6px 8px 6px 0; }
+  a.btn.alt { background: var(--lilac); }
+  code { background: #fff; border: 2px solid var(--ink); border-radius: 8px; padding: 1px 7px; font-size: 15px; }
+  details { background: #fff; border: 3px solid var(--ink); border-radius: 16px; padding: 10px 16px; margin: 10px 0; }
+  summary { cursor: pointer; font-weight: 600; font-size: 18px; }
+  .ball { width: 70px; height: 70px; float: right; margin: -6px 0 0 12px; animation: wob 2.4s ease-in-out infinite; } @keyframes wob { 50% { transform: rotate(14deg); } }
+  .tip { background: color-mix(in srgb, var(--mint) 45%, #fff); border: 2px dashed var(--ink); border-radius: 14px; padding: 8px 14px; margin: 10px 0; }
+</style>
+</head>
+<body>
+<main>
+  <svg class="ball" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#fff6e8" stroke="#5a4660" stroke-width="4"/><path d="M5 50a45 45 0 0 1 90 0z" fill="var(--me)" stroke="#5a4660" stroke-width="4"/><path d="M5 50h90" stroke="#5a4660" stroke-width="4"/><circle cx="50" cy="50" r="13" fill="#fff6e8" stroke="#5a4660" stroke-width="4"/></svg>
+  <h1>Hi <span id="who">friend</span>! 💖</h1>
+  <p class="sub">Let's get your Pinball Pals set up. About 15 minutes, and you only do it once.</p>
+
+  <section id="steps"></section>
+</main>
+
+<script>
+// the server fills this in for your personal link
+const S = /*__SETUP__*/null;
+const root = document.documentElement.style;
+if (S) { root.setProperty("--me", S.color); document.getElementById("who").textContent = S.label; }
+
+const table = S ? (S.field === "ruby" ? "Ruby" : "Sapphire") : "your";
+const vdoPush = S ? `https://vdo.ninja/?push=${S.vdoStream}&quality=0&screenshare&autostart` : "https://vdo.ninja";
+const vdoCam = S ? `https://vdo.ninja/?push=${S.vdoStream}cam&webcam&autostart` : "https://vdo.ninja";
+
+const steps = [
+  ["Install mGBA", `<p>Download <b>mGBA 0.10 or newer</b> (scripting is built in) and install it.</p><a class="btn alt" href="https://mgba.io/downloads.html" target="_blank">Get mGBA</a>`],
+  ["Get your game", `<p>Find your own copy of <b>Pokémon Pinball: Ruby &amp; Sapphire</b>, the <b>US version</b>. (Only the US one works with the tracker.)</p>`],
+  ["Download your script", S ? `<p>This file already knows your name, your table (<b>${table}</b>), the server, and your secret code, so just save it somewhere you'll find again.</p><a class="btn" href="${S.script}">⬇ pinball-pals.lua</a><div class="tip">Please don't share this file. It has your secret code inside.</div>` : `<p>Open your personal setup link to get your script.</p>`],
+  ["Load it in mGBA", `<p>Open mGBA, then <b>File → Load ROM</b> and pick your game. After that: <b>Tools → Scripting…</b>, then <b>File → Load script…</b> and pick <code>pinball-pals.lua</code>.</p><p>The console should say <b>“Connected as ${S ? S.label : "you"}!”</b> and your dot on the stream turns green. 🎉</p>`],
+  ["Next time", `<p>mGBA remembers your scripts. Next session it's two clicks: <b>Tools → Scripting → File → Load recent script</b>.</p>`],
+  ["Share your game with Zoe", `<p>Open this link, then choose your <b>mGBA window</b> to share:</p><a class="btn" href="${vdoPush}" target="_blank">Share game window</a>
+     <p>Want your camera in the stream too? Open this in a second tab:</p><a class="btn alt" href="${vdoCam}" target="_blank">Share webcam</a>
+     <p>You never touch OBS. Zoe adds your view from her side.</p>`],
+  ["Voice &amp; sound", `<p>We talk on <b>Discord</b>. To keep two pinball soundtracks from fighting, <b>mute the game in your mGBA</b> (Audio → volume 0). Zoe's music plays on stream. We can swap for big moments!</p>`],
+];
+document.getElementById("steps").innerHTML = steps.map((s, i) => `<div class="step"><div class="n">${i + 1}</div><h2>${s[0]}</h2>${s[1]}</div>`).join("") + `
+  <h2 style="margin-top:34px">If something's weird</h2>
+  <details><summary>It says “wrong game”</summary><p>The ROM isn't the US version. Please grab the US one (the game code should be <code>BPPE</code>).</p></details>
+  <details><summary>My dot stays grey</summary><p>Either the script isn't loaded (see step 4), or your network doesn't like unusual ports. Try your phone's hotspot to check. If that works, tell Zoe!</p></details>
+  <details><summary>Nothing happens when I catch something</summary><p>Reload the script (Tools → Scripting → File → Load script). It sends your whole dex again when it reconnects, so no catch gets lost.</p></details>
+  <details><summary>Server details (for Zoe)</summary><p>${S ? `<code>${S.host}:${S.port}</code> as <code>${S.player}</code>` : "n/a"}</p></details>`;
+</script>
+</body>
+</html>

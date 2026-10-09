@@ -1,0 +1,16 @@
+{
+  "name": "pinball-pals-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pinball Pals - shared Pokedex server (TCP from mGBA, HTTP + websocket for the overlay)",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

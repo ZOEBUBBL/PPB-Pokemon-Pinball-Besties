@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pinball Pals Overlay</title>
+<meta name="viewport" content="width=1920">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  /* Every colour is a variable. Player colours are overwritten from the server at runtime. */
+  :root {
+    --cream: #fff6e8; --cream-2: #ffeccd; --ink: #5a4660; --ink-soft: #8a7691;
+    --zoe: #ff8fb1; --clara: #8fc7ff; --lilac: #c9b6ff; --mint: #a6ecd0; --sun: #ffe08a;
+    --outline: 3px solid var(--ink);
+    --shadow: 0 6px 0 rgba(90, 70, 96, .22);
+    --display: "Fredoka", "Baloo 2", system-ui, sans-serif;
+    --pixel: "Press Start 2P", monospace;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: transparent; font-family: var(--display); color: var(--ink); }
+  body.demo { background: #3a3140; }          /* only for ?demo=1 previews, OBS stays transparent */
+  body.reduce * { animation-duration: 0.001s !important; animation-iteration-count: 1 !important; transition-duration: 0.001s !important; }
+
+  .panel { background: var(--cream); border: var(--outline); border-radius: 28px; box-shadow: var(--shadow); }
+  .pixel { font-family: var(--pixel); }
+
+  /* ---------- gameplay frames ---------- */
+  .handheld { position: absolute; top: 40px; width: 780px; height: 600px; }
+  .handheld.left  { left: 100px; }
+  .handheld.right { right: 100px; }
+  .handheld .bezel {
+    position: absolute; left: 0; top: 62px; width: 780px; height: 538px; border-radius: 44px;
+    border: 3px solid var(--ink); box-shadow: var(--shadow), inset 0 0 0 12px var(--accent);
+    /* the hole is transparent: OBS shows the game feed underneath */
+    pointer-events: none;
+  }
+  .handheld .bezel::before { content: ""; position: absolute; inset: 12px; border-radius: 32px; border: 3px solid var(--ink); }
+  .handheld .window { position: absolute; left: 30px; top: 92px; width: 720px; height: 480px; border-radius: 14px; outline: 3px solid var(--ink); }
+  .nametag {
+    position: absolute; left: 24px; top: 0; height: 64px; padding: 0 24px 0 20px; display: flex; align-items: center; gap: 14px;
+    background: var(--accent); border: var(--outline); border-radius: 32px; box-shadow: var(--shadow); font-weight: 700; font-size: 30px; color: #fff;
+    text-shadow: 0 2px 0 rgba(90,70,96,.45);
+  }
+  .nametag small { font-size: 20px; font-weight: 500; opacity: .95; }
+  .dot { width: 18px; height: 18px; border-radius: 50%; background: #b9adbf; border: 3px solid var(--ink); flex: none; }
+  .dot.on { background: #6fe3a5; animation: breathe 2.4s ease-in-out infinite; }
+  .offline-chip {
+    position: absolute; left: 50%; top: 280px; transform: translateX(-50%); padding: 10px 22px; border-radius: 24px; background: var(--cream);
+    border: var(--outline); font-weight: 600; font-size: 26px; display: none; z-index: 3;
+  }
+  .handheld.off .offline-chip { display: block; }
+  .cam {  /* webcam bubble slot: just a ring, OBS puts the camera under it */
+    position: absolute; right: 8px; top: 8px; width: 150px; height: 150px; border-radius: 50%; border: 6px solid var(--accent);
+    outline: 3px solid var(--ink); box-shadow: var(--shadow); pointer-events: none;
+  }
+  .handheld.left { --accent: var(--zoe); } .handheld.right { --accent: var(--clara); }
+
+  /* ---------- counter strip ---------- */
+  #strip { position: absolute; left: 480px; top: 656px; width: 960px; height: 118px; padding: 12px 28px; display: grid; grid-template-columns: auto 1fr; column-gap: 26px; align-items: center; }
+  #count { font-family: var(--pixel); font-size: 44px; line-height: 1; white-space: nowrap; }
+  #count span { display: inline-block; }
+  #count.tick span { animation: squash .6s cubic-bezier(.3,1.8,.5,1); }
+  #bar { height: 38px; border-radius: 19px; border: var(--outline); background: #fff; overflow: hidden; display: flex; position: relative; }
+  #bar i { display: block; height: 100%; transition: width .9s cubic-bezier(.3,1.5,.5,1); }
+  #bar .z { background: var(--zoe); } #bar .c { background: var(--clara); }
+  #bar::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(115deg, transparent 0 22px, rgba(255,255,255,.28) 22px 34px); pointer-events: none; }
+  #tally { grid-column: 1 / -1; display: flex; justify-content: space-between; font-weight: 700; font-size: 26px; margin-top: 4px; }
+  #tally .z { color: color-mix(in srgb, var(--zoe) 70%, #5a4660); } #tally .c { color: color-mix(in srgb, var(--clara) 60%, #3a4660); }
+
+  /* ---------- still-need panel ---------- */
+  #need { position: absolute; left: 100px; top: 792px; width: 800px; height: 150px; padding: 10px 20px; overflow: hidden; }
+  #need h3 { font-size: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  #need h3 em { font-style: normal; font-size: 20px; font-weight: 600; color: var(--ink-soft); margin-left: auto; }
+  #need .chips { display: flex; flex-wrap: wrap; gap: 6px 8px; align-content: flex-start; max-height: 96px; overflow: hidden; }
+  #need.swap .chips { animation: pop .5s cubic-bezier(.3,1.6,.5,1); }
+  .chip { display: inline-flex; align-items: center; gap: 4px; padding: 0 10px 0 3px; border: 2px solid var(--ink); border-radius: 16px; background: #fff; font-weight: 600; font-size: 17px; }
+  .chip img { width: 24px; height: 24px; object-fit: contain; filter: brightness(0) opacity(.45); }
+  .chip.ruby { background: color-mix(in srgb, var(--zoe) 30%, #fff); } .chip.sapphire { background: color-mix(in srgb, var(--clara) 30%, #fff); }
+  .chip.bounty { background: var(--sun); box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--ink); }
+  .flash { animation: flashpanel 1.6s ease-out; }
+
+  /* ---------- bounty / vote ---------- */
+  #side { position: absolute; right: 100px; top: 792px; width: 800px; height: 150px; padding: 10px 20px; overflow: hidden; }
+  #side h3 { font-size: 24px; font-weight: 700; margin-bottom: 4px; }
+  #side .row { display: flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 600; margin: 2px 0; }
+  #side .row .bar { flex: 1; height: 16px; border: 2px solid var(--ink); border-radius: 10px; background: #fff; overflow: hidden; }
+  #side .row .bar i { display: block; height: 100%; background: var(--lilac); transition: width .5s; }
+  #side .muted { color: var(--ink-soft); font-size: 20px; font-weight: 500; }
+  #bountyBox { display: flex; align-items: center; gap: 16px; }
+  #bountyBox img { width: 84px; height: 84px; object-fit: contain; filter: drop-shadow(0 3px 0 rgba(90,70,96,.25)); }
+
+  /* ---------- dex ribbon ---------- */
+  #ribbonWrap { position: absolute; left: 0; right: 0; top: 786px; height: 14px; }  /* anchor only */
+  #ribbon { position: absolute; left: 40px; width: 1840px; top: 954px; height: 116px; overflow: hidden; border-radius: 28px; background: var(--cream-2); border: var(--outline); box-shadow: var(--shadow); }
+  #ribbon .track { position: absolute; left: 0; top: 0; height: 100%; display: flex; align-items: center; will-change: transform; }
+  .slot { flex: none; width: 96px; height: 100px; margin: 0 5px; border-radius: 20px; background: #fff; border: 3px solid var(--ink); position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .slot .no { position: absolute; top: 5px; left: 0; right: 0; text-align: center; font-family: var(--pixel); font-size: 8px; color: var(--ink-soft); }
+  .slot img { width: 66px; height: 66px; object-fit: contain; margin-top: 10px; }
+  .slot .q { font-size: 38px; font-weight: 700; color: #cdbfd3; margin-top: 10px; }
+  .slot .nm { display: none; }
+  .slot.unseen { background: #fbf4ea; border-style: dashed; border-color: #cdbfd3; }
+  .slot.seen img { filter: brightness(0) opacity(.5); }
+  .slot.seen { background: #ece5f6; }
+  .slot.caught.by-zoe { background: color-mix(in srgb, var(--zoe) 28%, #fff); }
+  .slot.caught.by-clara { background: color-mix(in srgb, var(--clara) 32%, #fff); }
+  .slot.caught::after { content: "★"; position: absolute; right: 5px; bottom: 2px; font-size: 16px; color: var(--sun); -webkit-text-stroke: 1.5px var(--ink); }
+  .slot.hot { animation: squash .8s cubic-bezier(.3,1.8,.5,1); outline: 4px solid var(--sun); outline-offset: 2px; }
+
+  /* ---------- celebration layer ---------- */
+  #fx { position: absolute; inset: 0; pointer-events: none; z-index: 50; }
+  #confetti { position: absolute; inset: 0; width: 1920px; height: 1080px; }
+  .ball { position: absolute; left: 50%; top: 0; width: 170px; height: 170px; margin-left: -85px; z-index: 5; }
+  .card {
+    position: absolute; left: 50%; top: 220px; width: 520px; margin-left: -260px; padding: 26px 26px 22px; text-align: center;
+    background: var(--cream); border: 4px solid var(--ink); border-radius: 44px; box-shadow: 0 10px 0 rgba(90,70,96,.28);
+    transform-origin: center; z-index: 4;
+  }
+  .card .art { position: relative; width: 260px; height: 260px; margin: 0 auto; }
+  .card .art img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 0 rgba(90,70,96,.2)); }
+  .card .glow { position: absolute; inset: -30px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--who) 70%, #fff) 0, transparent 68%); animation: breathe 1.2s ease-in-out infinite; }
+  .card .num { font-family: var(--pixel); font-size: 20px; color: var(--ink-soft); margin-top: 6px; }
+  .card .name { font-size: 54px; font-weight: 700; line-height: 1.05; margin-top: 4px; }
+  .ribbon-tag { margin: 14px -50px 0; padding: 10px 20px; background: var(--who); color: #fff; font-size: 34px; font-weight: 700; border: var(--outline); border-radius: 18px; text-shadow: 0 2px 0 rgba(90,70,96,.45); position: relative; }
+  .first { position: absolute; right: -26px; top: -26px; padding: 10px 18px; transform: rotate(10deg); background: var(--sun); border: var(--outline); border-radius: 20px; font-weight: 700; font-size: 30px; box-shadow: var(--shadow); animation: wiggle 1s ease-in-out infinite; }
+  .bountytag { position: absolute; left: -30px; top: -26px; padding: 8px 16px; transform: rotate(-9deg); background: var(--lilac); border: var(--outline); border-radius: 20px; font-weight: 700; font-size: 26px; box-shadow: var(--shadow); }
+  .spark { position: absolute; width: 26px; height: 26px; z-index: 6; }
+  .toast {
+    position: absolute; left: 50%; top: 40px; margin-left: -230px; width: 460px; padding: 12px 20px; display: flex; align-items: center; gap: 14px;
+    background: var(--cream); border: var(--outline); border-radius: 30px; box-shadow: var(--shadow); font-weight: 600; font-size: 26px;
+  }
+  .toast img { width: 56px; height: 56px; object-fit: contain; filter: brightness(0) opacity(.5); }
+  .banner { position: absolute; left: 0; right: 0; top: 330px; text-align: center; z-index: 8; }
+  .banner b { display: inline-block; padding: 22px 54px; background: linear-gradient(90deg, var(--zoe), var(--lilac), var(--clara)); color: #fff; border: 4px solid var(--ink); border-radius: 50px; font-size: 84px; text-shadow: 0 4px 0 rgba(90,70,96,.5); box-shadow: 0 10px 0 rgba(90,70,96,.3); }
+  .banner small { display: block; margin-top: 16px; font-size: 38px; font-weight: 600; color: #fff; text-shadow: 0 3px 0 rgba(90,70,96,.6); }
+  .recap { position: absolute; left: 50%; top: 150px; width: 900px; margin-left: -450px; padding: 34px 44px; text-align: center; z-index: 9; }
+  .recap h2 { font-size: 56px; } .recap .big { font-family: var(--pixel); font-size: 40px; margin: 16px 0; }
+  .recap p { font-size: 30px; font-weight: 600; margin: 8px 0; }
+
+  /* ---------- decorations ---------- */
+  .star { position: absolute; color: var(--sun); -webkit-text-stroke: 2px var(--ink); font-size: 34px; animation: twinkle 3s ease-in-out infinite; }
+  #conn { position: absolute; left: 14px; bottom: 10px; font-size: 16px; font-weight: 600; color: var(--ink); background: var(--cream); border: 2px solid var(--ink); border-radius: 14px; padding: 2px 10px; display: none; z-index: 99; }
+
+  @keyframes breathe { 50% { transform: scale(1.06); } }
+  @keyframes squash { 0% { transform: scale(1); } 25% { transform: scale(1.25, .78); } 55% { transform: scale(.88, 1.18); } 80% { transform: scale(1.06, .96); } 100% { transform: scale(1); } }
+  @keyframes pop { 0% { transform: scale(.9); opacity: .2; } 100% { transform: scale(1); opacity: 1; } }
+  @keyframes wiggle { 50% { transform: rotate(-4deg) scale(1.06); } }
+  @keyframes twinkle { 50% { transform: scale(1.25) rotate(18deg); opacity: .75; } }
+  @keyframes flashpanel { 0%, 40% { box-shadow: 0 0 0 8px var(--sun), var(--shadow); } 100% { box-shadow: var(--shadow); } }
+</style>
+</head>
+<body>
+
+<!-- gameplay frames (the holes are transparent; OBS puts the game feeds underneath) -->
+<div class="handheld left" id="hZoe">
+  <div class="bezel"></div><div class="window"></div>
+  <div class="nametag"><span class="dot" id="dZoe"></span><span id="nZoe">Zoe</span><small id="fZoe">Ruby Field</small></div>
+  <div class="cam"></div><div class="offline-chip" id="oZoe">Zoe disconnected</div>
+</div>
+<div class="handheld right" id="hClara">
+  <div class="bezel"></div><div class="window"></div>
+  <div class="nametag"><span class="dot" id="dClara"></span><span id="nClara">Clara</span><small id="fClara">Sapphire Field</small></div>
+  <div class="cam"></div><div class="offline-chip" id="oClara">Clara disconnected</div>
+</div>
+
+<!-- counter -->
+<div class="panel" id="strip">
+  <div id="count"><span id="cNow">0</span> <small style="font-size:.7em;opacity:.45">/</small> <span id="cTotal">205</span></div>
+  <div id="bar"><i class="z" id="barZ" style="width:0"></i><i class="c" id="barC" style="width:0"></i></div>
+  <div id="tally"><span class="z" id="tZ">Zoe 0</span><span id="sess" class="muted" style="color:var(--ink-soft);font-size:20px;font-weight:600"></span><span class="c" id="tC">Clara 0</span></div>
+</div>
+
+<!-- panels -->
+<div class="panel" id="need"><h3><span id="needIcon">🔎</span><span id="needTitle">Still need</span><em id="needCount"></em></h3><div class="chips" id="needChips"></div></div>
+<div class="panel" id="ribbon"><div class="track" id="track"></div></div>
+<div class="panel" id="side"></div>
+
+<span class="star" style="left:70px;top:690px">★</span>
+<span class="star" style="right:70px;top:690px;animation-delay:-1s">★</span>
+<span class="star" style="left:930px;top:20px;font-size:26px;animation-delay:-2s">✦</span>
+
+<div id="fx"><canvas id="confetti" width="1920" height="1080"></canvas></div>
+<div id="conn"></div>
+
+<script>
+"use strict";
+/* =====================================================================
+   Pinball Pals overlay: one file, no build step.
+   URL:  /overlay/?key=<read-only key>      (add &demo=1 to preview without a server)
+   ===================================================================== */
+const Q = new URLSearchParams(location.search);
+const DEMO = Q.has("demo");
+const SPECIES = [];            // filled from /data/species.json (or the embedded demo list)
+let S = null;                  // latest server state
+let vote = null;
+let settings = { volume: .6, reduceMotion: false };
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const sprite = (sp) => `/sprite/${sp.national}.png`;
+const sleep = (ms) => new Promise((r) => setTimeout(r, settings.reduceMotion ? Math.min(ms, 30) : ms));
+const pname = (id) => S?.players?.[id]?.label ?? id;
+const pcolor = (id) => S?.players?.[id]?.color ?? (id === "clara" ? "#8fc7ff" : "#ff8fb1");
+
+/* ---------------------------------------------------------------- sound
+   Original chimes synthesised with WebAudio. Never game audio. */
+let actx = null;
+function audio() {
+  if (!actx) { try { actx = new (window.AudioContext || window.webkitAudioContext)(); } catch { return null; } }
+  if (actx.state === "suspended") actx.resume().catch(() => {});
+  return actx;
+}
+function tone(freq, t0, dur, type = "sine", gain = .25) {
+  const a = audio(); if (!a || settings.volume <= 0) return;
+  const o = a.createOscillator(), g = a.createGain();
+  o.type = type; o.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, a.currentTime + t0);
+  g.gain.exponentialRampToValueAtTime(gain * settings.volume, a.currentTime + t0 + .02);
+  g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime + t0 + dur);
+  o.connect(g).connect(a.destination); o.start(a.currentTime + t0); o.stop(a.currentTime + t0 + dur + .05);
+}
+const sfx = {
+  wobble() { tone(330, 0, .12, "triangle"); },
+  chime(first) { [659, 784, 988, 1319].forEach((f, i) => tone(f, i * .09, .35, "sine", .3)); if (first) tone(1568, .4, .6, "triangle", .22); },
+  small() { tone(880, 0, .15, "triangle"); tone(1175, .08, .2, "triangle"); },
+  tick() { tone(1500, 0, .06, "square", .08); },
+  fanfare() { [523, 659, 784, 1047, 784, 1047, 1319].forEach((f, i) => tone(f, i * .14, .4, "square", .16)); [262, 330, 392, 523].forEach((f, i) => tone(f, i * .28, .6, "triangle", .2)); },
+};
+
+/* ---------------------------------------------------------------- hud */
+function applyState(st) {
+  S = st;
+  settings = { ...settings, ...(st.settings ?? {}) };
+  document.body.classList.toggle("reduce", !!settings.reduceMotion);
+  const root = document.documentElement.style;
+  root.setProperty("--zoe", pcolor("zoe")); root.setProperty("--clara", pcolor("clara"));
+  for (const id of ["zoe", "clara"]) {
+    const P = st.players[id], cap = id[0].toUpperCase() + id.slice(1);
+    $("n" + cap).textContent = P.label;
+    $("f" + cap).textContent = (P.field === "ruby" ? "Ruby" : "Sapphire") + " Field";
+    $("d" + cap).classList.toggle("on", P.online);
+    $("h" + cap).classList.toggle("off", !P.online);
+    $("o" + cap).textContent = P.label + " disconnected";
+  }
+  renderCount(false);
+  renderRibbonStates();
+  renderNeed();
+  renderSide();
+}
+
+let shownCaught = -1;
+function renderCount(animate) {
+  const n = S.caught;
+  $("cNow").textContent = n; $("cTotal").textContent = S.total;
+  const z = S.tally.zoe, c = S.tally.clara, tot = S.total;
+  $("barZ").style.width = (z / tot * 100) + "%"; $("barC").style.width = (c / tot * 100) + "%";
+  $("tZ").textContent = `${S.players.zoe.label} ${z}`; $("tC").textContent = `${S.players.clara.label} ${c}`;
+  const nt = S.session.newThisSession.length;
+  $("sess").textContent = nt ? `+${nt} tonight` : "";
+  if (animate && n !== shownCaught) {
+    const el = $("count"); el.classList.remove("tick"); void el.offsetWidth; el.classList.add("tick"); sfx.tick();
+  }
+  shownCaught = n;
+}
+
+/* ---------------------------------------------------------------- need panel */
+const GROUPS = [
+  { key: "ruby", title: "Ruby only table", icon: "❤️" },
+  { key: "sapphire", title: "Sapphire only table", icon: "💙" },
+  { key: "either", title: "Either table", icon: "✨" },
+];
+let groupIx = 0, needFlash = null;
+function renderNeed(swap) {
+  if (!S) return;
+  const g = GROUPS[groupIx % 3];
+  const left = SPECIES.filter((s) => s.field === g.key && S.dex[s.slot]?.state !== "caught");
+  $("needTitle").textContent = g.title; $("needIcon").textContent = g.icon;
+  $("needCount").textContent = `${left.length} left`;
+  const shown = left.slice(0, 13);
+  $("needChips").innerHTML = shown.map((s) =>
+    `<span class="chip ${s.field} ${S.bounty === s.slot ? "bounty" : ""}"><img src="${sprite(s)}" alt="" onerror="this.style.display='none'">${S.bounty === s.slot ? "🎯 " : ""}${esc(s.name)}</span>`
+  ).join("") + (left.length > shown.length ? `<span class="chip">+${left.length - shown.length} more</span>` : "")
+    + (left.length === 0 ? `<span class="chip">All done here! 🎉</span>` : "");
+  if (swap) { const p = $("need"); p.classList.remove("swap"); void p.offsetWidth; p.classList.add("swap"); }
+}
+setInterval(() => { if (needHold > Date.now()) return; groupIx++; renderNeed(true); }, 12000);
+let needHold = 0;
+
+/* ---------------------------------------------------------------- side panel: bounty / vote */
+function renderSide() {
+  if (!S) return;
+  const el = $("side");
+  if (vote) {
+    const max = Math.max(1, ...vote.tally.map((t) => t.n));
+    const left = Math.max(0, Math.ceil((vote.endsAt - Date.now()) / 1000));
+    el.innerHTML = `<h3>🗳️ Pick tonight's bounty! <span class="muted">${left}s · type !vote &lt;name&gt;</span></h3>` +
+      (vote.tally.slice(0, 4).map((t) => `<div class="row"><span style="width:170px">${esc(t.name)}</span><span class="bar"><i style="width:${t.n / max * 100}%"></i></span><b>${t.n}</b></div>`).join("")
+        || `<p class="muted">No votes yet…</p>`);
+    return;
+  }
+  if (S.bounty != null) {
+    const sp = SPECIES[S.bounty];
+    el.innerHTML = `<h3>🎯 Bounty of the night</h3><div id="bountyBox"><img src="${sprite(sp)}" alt=""><div><div style="font-size:40px;font-weight:700">${esc(sp.name)}</div><div class="muted">${sp.field === "either" ? "either table" : sp.field + " table"} · catch it for a surprise!</div></div></div>`;
+    return;
+  }
+  const t = S.session.newThisSession;
+  el.innerHTML = `<h3>🌟 Tonight</h3>` + (t.length
+    ? `<div style="display:flex;gap:6px;flex-wrap:wrap">${t.slice(-8).map((sl) => `<img src="${sprite(SPECIES[sl])}" width="64" height="64" style="object-fit:contain" alt="">`).join("")}</div><p class="muted" style="margin-top:8px">${t.length} new Pokémon so far!</p>`
+    : `<p class="muted" style="font-size:24px;margin-top:20px">No new catches yet. Let's go!</p><p class="muted" style="margin-top:10px">Chat: !need · !dex &lt;name&gt; · !score</p>`);
+}
+setInterval(() => { if (vote) renderSide(); }, 1000);
+
+/* ---------------------------------------------------------------- dex ribbon */
+const SLOT_W = 106;            // 96 + 2*5 margin
+let L = 0, off = 0, focusTo = null, lastT = performance.now();
+function buildRibbon() {
+  const html = SPECIES.map((s) => `<div class="slot unseen" data-slot="${s.slot}"><div class="no">${String(s.slot + 1).padStart(3, "0")}</div><div class="q">?</div></div>`).join("");
+  $("track").innerHTML = html + html;      // two copies for a seamless loop
+  L = SPECIES.length * SLOT_W;
+  const w = $("ribbon").clientWidth;
+  $("ribbon").dataset.w = w;
+}
+function renderRibbonStates() {
+  if (!S) return;
+  document.querySelectorAll("#track .slot").forEach((el) => {
+    const slot = +el.dataset.slot, d = S.dex[slot], sp = SPECIES[slot];
+    const state = d?.state ?? "unseen";
+    const key = state + (d?.firstBy ?? "");
+    if (el.dataset.k === key) return;
+    el.dataset.k = key;
+    el.className = `slot ${state}` + (state === "caught" ? ` by-${d.firstBy}` : "");
+    const no = `<div class="no">${String(slot + 1).padStart(3, "0")}</div>`;
+    if (state === "unseen") el.innerHTML = no + `<div class="q">?</div>`;
+    else el.innerHTML = no + `<img src="${sprite(sp)}" alt="" loading="lazy" onerror="this.style.display='none'">` + (state === "caught" ? `<div class="nm">${esc(sp.name)}</div>` : "");
+  });
+}
+function slotCenter(slot) { return slot * SLOT_W + SLOT_W / 2; }
+function frame(now) {
+  const dt = Math.min(.1, (now - lastT) / 1000); lastT = now;
+  const w = +$("ribbon").dataset.w || 400;
+  if (focusTo != null) {
+    const target = slotCenter(focusTo) - w / 2;
+    let diff = ((target - off) % L + L * 1.5) % L - L / 2;       // shortest way round
+    off += diff * Math.min(1, dt * (settings.reduceMotion ? 60 : 5));
+    if (Math.abs(diff) < 1) { off = target; }
+  } else if (!settings.reduceMotion) off += 38 * dt;
+  off = ((off % L) + L) % L;
+  $("track").style.transform = `translateX(${-off}px)`;
+  requestAnimationFrame(frame);
+}
+function slotRect(slot) {
+  // pick whichever of the two copies is on screen
+  const els = document.querySelectorAll(`#track .slot[data-slot="${slot}"]`);
+  const ribbonR = $("ribbon").getBoundingClientRect();
+  for (const e of els) { const r = e.getBoundingClientRect(); if (r.right > ribbonR.left && r.left < ribbonR.right) return r; }
+  return els[0].getBoundingClientRect();
+}
+
+/* ---------------------------------------------------------------- celebration queue */
+const queue = []; let busy = false;
+function enqueue(job) { queue.push(job); if (!busy) runQueue(); }
+async function runQueue() {
+  busy = true;
+  while (queue.length) { try { await queue.shift()(); } catch (e) { console.error(e); } }
+  busy = false; focusTo = null;
+}
+const fx = $("fx");
+function el(html) { const t = document.createElement("div"); t.innerHTML = html.trim(); return t.firstChild; }
+
+// Ball icon by evolution stage: poke (unevolved), great (middle), ultra (final of 2 stages), master (final of 3)
+const BALL_STYLE = {
+  poke:   { top: "#ff6b7d", extra: "" },
+  great:  { top: "#6aa8ff", extra: `<path d="M16 34q-4 8-4 16h14q0-6 4-12zM84 34q4 8 4 16H74q0-6-4-12z" fill="#ff6b7d" stroke="#5a4660" stroke-width="3" stroke-linejoin="round"/>` },
+  ultra:  { top: "#4a4458", extra: `<path d="M24 30q10-14 26-17M76 30q-10-14-26-17" stroke="#ffd45e" stroke-width="7" stroke-linecap="round" fill="none"/>` },
+  master: { top: "#b58cf0", extra: `<circle cx="22" cy="32" r="8" fill="#ff8fc7" stroke="#5a4660" stroke-width="3"/><circle cx="78" cy="32" r="8" fill="#ff8fc7" stroke="#5a4660" stroke-width="3"/><text x="50" y="35" text-anchor="middle" font-size="19" font-weight="900" font-family="Fredoka, sans-serif" fill="#fff6e8" stroke="#5a4660" stroke-width="2.5" paint-order="stroke">M</text>` },
+};
+const BALL_SVG = (kind = "poke") => { const b = BALL_STYLE[kind] || BALL_STYLE.poke; return `<svg viewBox="0 0 100 100" width="100%" height="100%"><circle cx="50" cy="50" r="45" fill="#fff6e8" stroke="#5a4660" stroke-width="4"/><path d="M5 50a45 45 0 0 1 90 0z" fill="${b.top}" stroke="#5a4660" stroke-width="4"/>${b.extra}<path d="M5 50h90" stroke="#5a4660" stroke-width="4"/><circle cx="50" cy="50" r="13" fill="#fff6e8" stroke="#5a4660" stroke-width="4"/><circle cx="50" cy="50" r="5" fill="#ffe08a" stroke="#5a4660" stroke-width="2.5"/><circle cx="30" cy="30" r="4" fill="#fff" opacity=".85"/></svg>`; };
+const SPARK_SVG = (c) => `<svg viewBox="0 0 24 24"><path d="M12 1l2.6 8.4L23 12l-8.4 2.6L12 23l-2.6-8.4L1 12l8.4-2.6z" fill="${c}" stroke="#5a4660" stroke-width="1.5" stroke-linejoin="round"/></svg>`;
+
+function sparkles(cx, cy, n, color, spread = 220) {
+  for (let i = 0; i < n; i++) {
+    const s = el(`<div class="spark">${SPARK_SVG(i % 3 ? color : "#ffe08a")}</div>`);
+    s.style.left = cx + "px"; s.style.top = cy + "px";
+    fx.appendChild(s);
+    const a = Math.random() * Math.PI * 2, d = spread * (.4 + Math.random() * .8);
+    s.animate([{ transform: "translate(-50%,-50%) scale(0) rotate(0)", opacity: 1 },
+      { transform: `translate(calc(-50% + ${Math.cos(a) * d}px), calc(-50% + ${Math.sin(a) * d}px)) scale(${.6 + Math.random()}) rotate(${Math.random() * 360}deg)`, opacity: 0 }],
+      { duration: 900 + Math.random() * 500, easing: "cubic-bezier(.2,.8,.3,1)" }).onfinish = () => s.remove();
+  }
+}
+
+// a repeat catch: a small "+1" bubble, no big show
+async function repeatBubble(e) {
+  const sp = SPECIES[e.slot], who = pcolor(e.by);
+  const t = el(`<div class="toast" style="border-color:${who}"><img src="${sprite(sp)}" alt="" style="filter:none"><span><b>${esc(sp.name)}</b> +1 <small>(x${e.count})</small></span></div>`);
+  fx.appendChild(t); sfx.small();
+  t.animate([{ transform: "translateY(-120px) scale(.8)" }, { transform: "translateY(0) scale(1)" }], { duration: 450, easing: "cubic-bezier(.3,1.6,.5,1)" });
+  await sleep(1800);
+  await t.animate([{ opacity: 1 }, { opacity: 0, transform: "translateY(-50px)" }], { duration: 350 }).finished.catch(() => {});
+  t.remove();
+}
+
+async function celebrateCatch(e) {
+  const sp = SPECIES[e.slot], who = pcolor(e.by);
+  focusTo = e.slot;
+  // seen-only: a small toast, no show
+  if (e.state === "seen") {
+    const t = el(`<div class="toast"><img src="${sprite(sp)}" alt=""><span>Spotted <b>${esc(sp.name)}</b>!</span></div>`);
+    fx.appendChild(t); sfx.small();
+    t.animate([{ transform: "translateY(-120px)" }, { transform: "translateY(0)" }], { duration: 500, easing: "cubic-bezier(.3,1.6,.5,1)" });
+    await sleep(2600);
+    await t.animate([{ opacity: 1 }, { opacity: 0, transform: "translateY(-60px)" }], { duration: 400 }).finished.catch(() => {});
+    t.remove(); return;
+  }
+  const first = e.first !== false;
+  // 1. ball drops and wobbles three times
+  const ball = el(`<div class="ball">${BALL_SVG(sp.ball)}</div>`); fx.appendChild(ball);
+  await ball.animate([{ transform: "translateY(-260px) scale(.6)" }, { transform: "translateY(300px) scale(1,.8)", offset: .7 }, { transform: "translateY(260px) scale(1)" }],
+    { duration: 600, easing: "cubic-bezier(.5,0,.8,.6)", fill: "forwards" }).finished.catch(() => {});
+  for (let i = 0; i < 3; i++) {
+    sfx.wobble();
+    await ball.animate([{ transform: "translateY(260px) rotate(0)" }, { transform: "translateY(260px) rotate(-24deg)" }, { transform: "translateY(260px) rotate(20deg)" }, { transform: "translateY(260px) rotate(0)" }],
+      { duration: 360, fill: "forwards" }).finished.catch(() => {});
+    await sleep(60);
+  }
+  // 2. pop into a card
+  sparkles(960, 430, 22, who);
+  ball.remove(); sfx.chime(first);
+  const card = el(`<div class="card" style="--who:${who}">
+      ${first ? `<div class="first">FIRST!</div>` : ""}${e.isBounty ? `<div class="bountytag">🎯 BOUNTY!</div>` : ""}
+      <div class="art"><div class="glow"></div><img src="${sprite(sp)}" alt=""></div>
+      <div class="num">No. ${String(e.slot + 1).padStart(3, "0")}</div>
+      <div class="name">${esc(sp.name)}</div>
+      <div class="ribbon-tag">Caught by ${esc(pname(e.by))}!</div>
+    </div>`);
+  fx.appendChild(card);
+  await card.animate([{ transform: "scale(.1) rotate(-12deg)", opacity: 0 }, { transform: "scale(1.12) rotate(3deg)", opacity: 1, offset: .6 }, { transform: "scale(1) rotate(0)" }],
+    { duration: 600, easing: "cubic-bezier(.3,1.4,.5,1)" }).finished.catch(() => {});
+  if (e.isBounty) { confetti(140); sfx.fanfare(); }
+  sparkles(960, 430, 12, who, 330);
+  await sleep(e.isBounty ? 2400 : 1500);
+  // 3. shrink and fly into its slot on the ribbon
+  await sleep(250);
+  const r = slotRect(e.slot), c = card.getBoundingClientRect();
+  const dx = (r.left + r.width / 2) - (c.left + c.width / 2), dy = (r.top + r.height / 2) - (c.top + c.height / 2);
+  const sc = Math.min(r.width / c.width, r.height / c.height);
+  await card.animate([{ transform: "none", opacity: 1 }, { transform: `translate(${dx}px, ${dy}px) scale(${sc})`, opacity: .85 }],
+    { duration: 700, easing: "cubic-bezier(.6,-0.2,.4,1)", fill: "forwards" }).finished.catch(() => {});
+  card.remove();
+  // 4. counter ticks (state arrives via the "state" message; in demo we apply it here)
+  sparkles(r.left + r.width / 2, r.top + r.height / 2, 14, who, 110);
+  const slotEl = [...document.querySelectorAll(`#track .slot[data-slot="${e.slot}"]`)];
+  slotEl.forEach((x) => { x.classList.remove("hot"); void x.offsetWidth; x.classList.add("hot"); });
+  renderCount(true);
+  await sleep(500);
+}
+
+/* confetti (milestones + bounty) */
+const cv = $("confetti"), ctx = cv.getContext("2d"); let bits = [], raf = 0;
+function confetti(n = 220) {
+  const cols = [pcolor("zoe"), pcolor("clara"), "#c9b6ff", "#a6ecd0", "#ffe08a"];
+  for (let i = 0; i < n; i++) bits.push({ x: Math.random() * 1920, y: -20 - Math.random() * 400, vx: (Math.random() - .5) * 4, vy: 3 + Math.random() * 5, r: Math.random() * 6, vr: (Math.random() - .5) * .3, w: 12 + Math.random() * 12, h: 8 + Math.random() * 8, c: cols[i % cols.length] });
+  if (!raf) raf = requestAnimationFrame(stepConfetti);
+}
+function stepConfetti() {
+  ctx.clearRect(0, 0, 1920, 1080);
+  bits = bits.filter((b) => b.y < 1120);
+  for (const b of bits) { b.x += b.vx; b.y += b.vy; b.vy += .05; b.r += b.vr; ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.r); ctx.fillStyle = b.c; ctx.strokeStyle = "#5a4660"; ctx.lineWidth = 2; ctx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h); ctx.strokeRect(-b.w / 2, -b.h / 2, b.w, b.h); ctx.restore(); }
+  raf = bits.length ? requestAnimationFrame(stepConfetti) : 0;
+}
+
+async function celebrateMilestone(m) {
+  const b = el(`<div class="banner"><b>${m.pct === 100 ? "POKÉDEX COMPLETE!!" : m.pct + "% DONE!"}</b><small>${m.caught} / ${m.total} caught together ♥</small></div>`);
+  fx.appendChild(b); sfx.fanfare(); confetti(m.pct === 100 ? 500 : 260);
+  b.animate([{ transform: "scale(.2)", opacity: 0 }, { transform: "scale(1.1)", opacity: 1, offset: .6 }, { transform: "scale(1)" }], { duration: 700, easing: "ease-out" });
+  await sleep(m.pct === 100 ? 9000 : 4500);
+  await b.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 400 }).finished.catch(() => {});
+  b.remove();
+}
+
+async function showRecap(r) {
+  const per = r.perPlayer ?? {};
+  const card = el(`<div class="panel recap"><h2>Tonight's recap ✨</h2>
+    <div class="big">${r.catches.length} new</div>
+    <p>${esc(pname("zoe"))}: <b>${per.zoe ?? 0}</b> &nbsp;·&nbsp; ${esc(pname("clara"))}: <b>${per.clara ?? 0}</b></p>
+    ${r.rarest ? `<p>Rarest catch: <b>${esc(r.rarest.name)}</b></p><img src="${sprite(r.rarest)}" width="200" height="200" style="object-fit:contain" alt="">` : ""}
+    <p class="muted" style="color:var(--ink-soft);font-size:24px">${(r.names ?? []).slice(0, 14).map(esc).join(" · ")}</p></div>`);
+  fx.appendChild(card); sfx.chime(true); confetti(120);
+  await sleep(12000);
+  card.remove();
+}
+
+/* ---------------------------------------------------------------- message handling */
+function onMessage(m) {
+  switch (m.type) {
+    case "state": vote = m.vote ?? null; applyState(m.state); break;
+    case "catch": enqueue(async () => { await celebrateCatch(m); }); break;
+    case "repeat": enqueue(async () => { await repeatBubble(m); }); break;
+    case "milestone": enqueue(() => celebrateMilestone(m)); break;
+    case "recap": enqueue(() => showRecap(m.recap)); break;
+    case "flash": {
+      if (m.panel === "need") { needHold = Date.now() + 8000; const p = $("need"); p.classList.remove("flash"); void p.offsetWidth; p.classList.add("flash"); }
+      if (m.panel === "slot") {
+        focusTo = m.slot; setTimeout(() => { if (!busy) focusTo = null; }, 5000);
+        document.querySelectorAll(`#track .slot[data-slot="${m.slot}"]`).forEach((x) => { x.classList.remove("hot"); void x.offsetWidth; x.classList.add("hot"); });
+        const sp = SPECIES[m.slot]; if (S) { const g = GROUPS.findIndex((x) => x.key === sp.field); if (g >= 0) { groupIx = g; renderNeed(true); needHold = Date.now() + 8000; } }
+      }
+      break;
+    }
+  }
+}
+
+/* ---------------------------------------------------------------- connection */
+function connect() {
+  const key = Q.get("key") ?? "";
+  const ws = new WebSocket(`${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws?key=${encodeURIComponent(key)}`);
+  let retry = 1000;
+  ws.onopen = () => { $("conn").style.display = "none"; retry = 1000; };
+  ws.onmessage = (ev) => { try { onMessage(JSON.parse(ev.data)); } catch (e) { console.error(e); } };
+  ws.onclose = () => {
+    const c = $("conn"); c.textContent = "overlay reconnecting…"; c.style.display = "block";
+    setTimeout(connect, retry); retry = Math.min(retry * 1.7, 10000);
+  };
+}
+
+/* ---------------------------------------------------------------- demo mode (no server) */
+function runDemo() {
+  document.body.classList.add("demo");
+  const players = { zoe: { label: "Zoe", field: "ruby", color: "#ff8fb1", online: true }, clara: { label: "Clara", field: "sapphire", color: "#8fc7ff", online: true } };
+  const st = { total: SPECIES.length, caught: 0, seen: 0, tally: { zoe: 0, clara: 0 }, players, dex: {}, bounty: 98, settings: { volume: 0.3, reduceMotion: false }, session: { newThisSession: [] } };
+  const bump = (slot, state, by) => {
+    st.dex[slot] = { state, firstBy: state === "caught" ? by : null, catches: {} };
+    st.caught = Object.values(st.dex).filter((d) => d.state === "caught").length;
+    st.tally = { zoe: 0, clara: 0 }; Object.values(st.dex).forEach((d) => d.firstBy && st.tally[d.firstBy]++);
+    if (state === "caught") st.session.newThisSession.push(slot);
+  };
+  for (let i = 0; i < 70; i++) { const s = (i * 7 + 3) % SPECIES.length; bump(s, i % 9 === 0 ? "seen" : "caught", i % 2 ? "zoe" : "clara"); }
+  st.session.newThisSession = [];
+  applyState(st);
+  const fire = (slot, by, state = "caught") => { const sp = SPECIES[slot]; bump(slot, state, by); onMessage({ type: "catch", slot, state, by, first: true, name: sp.name, national: sp.national, isBounty: slot === 98 }); setTimeout(() => applyState(st), 4200); };
+  if (Q.get("demo") === "static") return;
+  setTimeout(() => fire(25, "clara"), 1500);
+  setTimeout(() => fire(98, "zoe"), 9000);
+  setTimeout(() => onMessage({ type: "milestone", pct: 25, caught: st.caught, total: st.total }), 16000);
+  setTimeout(() => { vote = { endsAt: Date.now() + 40000, tally: [{ slot: 139, name: "Feebas", n: 7 }, { slot: 197, name: "Kyogre", n: 4 }, { slot: 160, name: "Wobbuffet", n: 2 }] }; renderSide(); }, 12000);
+}
+
+/* ---------------------------------------------------------------- boot */
+(async function boot() {
+  try {
+    const r = await fetch("/data/species.json"); SPECIES.push(...await r.json());
+  } catch (e) { console.error("could not load species.json", e); }
+  buildRibbon();
+  requestAnimationFrame(frame);
+  // browsers only allow sound after a click; OBS browser sources allow it automatically
+  addEventListener("pointerdown", () => audio(), { once: true });
+  if (DEMO) runDemo(); else connect();
+})();
+</script>
+</body>
+</html>
