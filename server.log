@@ -1,0 +1,13 @@
+
+> pinball-pals-server@0.1.0 start
+> node src/index.js
+
+(node:24516) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Twitch bot disabled (set TWITCH_CHANNEL, TWITCH_BOT_NAME, TWITCH_BOT_TOKEN to enable)
+TCP listening on :9000
+HTTP listening on :8080
+Admin:        http://localhost:8080/admin/
+Overlay (OBS): http://localhost:8080/overlay/?key=bdb39b9e52e0d51146
+Zoe setup:    http://localhost:8080/s/1982f0a9657efa88bb
+Clara setup:  http://localhost:8080/s/c3225b8ac38a3c3f80

@@ -1,0 +1,9 @@
+vendor
+node_modules
+server/node_modules
+data/*.sqlite*
+data/sprites
+.env
+local
+server.log
+*.bat

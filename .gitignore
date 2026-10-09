@@ -1,0 +1,8 @@
+node_modules/
+.env
+vendor/pokepinballrs/
+data/*.sqlite*
+data/sprites/
+*.log
+local/
+server.log
