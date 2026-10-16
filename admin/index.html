@@ -75,6 +75,8 @@
         <h2>Overlay settings</h2>
         <div class="row"><label>Volume <input type="range" id="vol" min="0" max="1" step="0.05"></label></div>
         <div class="row"><label><input type="checkbox" id="rm"> Reduce motion</label></div>
+        <div class="row"><label><input type="checkbox" id="solo" onchange="saveSettings()"> Solo mode (Clara offline)</label></div>
+        <div class="muted">Switches the overlay to Zoe's big game frame plus a square camera. Progress stays shared.</div>
         <div class="row"><button onclick="saveSettings()">Save</button></div>
       </div>
     </div>
@@ -108,7 +110,7 @@ async function api(route, body) {
 }
 const post = (route, body = {}) => api(route, body).catch((e) => alert(e.message));
 const test = (by) => post("testcatch", { by });
-function saveSettings() { post("settings", { volume: +$("vol").value, reduceMotion: $("rm").checked }); }
+function saveSettings() { post("settings", { volume: +$("vol").value, reduceMotion: $("rm").checked, soloMode: $("solo").checked }); }
 function setSlot() { post("setslot", { slot: +$("ssel").value, state: $("sstate").value, by: $("sby").value }); }
 
 function render(st, links) {
@@ -118,7 +120,7 @@ function render(st, links) {
   $("prog").textContent = `${st.caught} / ${st.total}`;
   $("tally").textContent = `${st.players.zoe.label} ${st.tally.zoe} · ${st.players.clara.label} ${st.tally.clara} · ${st.seen} seen only`;
   $("sess").textContent = `Session started ${new Date(st.session.startedAt).toLocaleString()} · ${st.session.newThisSession.length} new tonight · bounty: ${st.bounty == null ? "none" : SP[st.bounty]?.name}`;
-  $("vol").value = st.settings.volume; $("rm").checked = st.settings.reduceMotion;
+  $("vol").value = st.settings.volume; $("rm").checked = st.settings.reduceMotion; $("solo").checked = !!st.settings.soloMode;
   $("dexgrid").innerHTML = SP.map((s) => { const d = st.dex[s.slot]; return `<div data-s="${s.slot}" class="${d?.state ?? ""} ${d?.firstBy ?? ""}">${String(s.slot + 1).padStart(3, "0")} ${s.name}</div>`; }).join("");
   if (links) $("links").innerHTML = [["Overlay (OBS browser source, 1920×1080)", links.overlay], ["Zoe's setup page", links.zoeSetup], ["Clara's setup page (send her this)", links.claraSetup]]
     .map(([t, u]) => `<div><b>${t}</b><br><a href="${u}" target="_blank"><code>${location.origin}${u}</code></a></div>`).join("");
